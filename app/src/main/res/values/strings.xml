@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Dicoding</string>
+    <string name="menu_english">English</string>
+    <string name="menu_indo">Bahasa</string>
+    <string name="tab_movie">Movies</string>
+
+    <string name="tab_tv">TV Series</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="overview">Overview</string>
+    <string name="lorem_ipsum">lorem ipsum dulur</string>
+    <string name="popular">Popularity</string>
+    <string name="date">Date</string>
+    <string name="poster">Poster</string>
+    <string name="tittle">Tittle</string>
+    <string name="adult">Mature content</string>
+    <string name="language">Language</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fav">fav</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="search">Search</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dicoding</string>
+    <string name="menu_english">inggris</string>
+    <string name="menu_indo">indonesia</string>
+    <string name="tab_movie">Film</string>
+
+    <string name="tab_tv">Sinetron</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="overview">keterangan</string>
+    <string name="lorem_ipsum">lorem ipsum dulur</string>
+    <string name="popular">popularitas</string>
+    <string name="date">tanggal</string>
+    <string name="poster">poster</string>
+    <string name="tittle">judul</string>
+    <string name="adult">konten dewasa</string>
+    <string name="language">bahasa</string>
+</resources>
