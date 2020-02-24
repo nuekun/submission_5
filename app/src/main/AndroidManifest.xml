@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <permission android:name="com.nuedevlop.dicoding.READ_DATABASE" android:protectionLevel="normal" />
-    <permission android:name="com.nuedevlop.dicoding.WRITE_DATABASE" android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -19,10 +18,9 @@
         <provider
             android:name=".utils.MyContentProvider"
             android:authorities="com.nuedevlop.dicoding"
+            android:multiprocess="true"
             android:enabled="true"
-            android:exported="true"
-            android:readPermission="com.nuedevlop.dicoding.READ_DATABASE"
-            android:writePermission="com.nuedevlop.dicoding.WRITE_DATABASE"></provider>
+            android:exported="true" />
 
         <receiver
             android:name=".utils.Reminder"

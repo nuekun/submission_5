@@ -25,13 +25,10 @@ public class MyContentProvider extends ContentProvider {
     private static final String AUTHORITY = "com.nuedevlop.dicoding";
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-
     static {
         uriMatcher.addURI(AUTHORITY, DB_TABLE, 1);
         uriMatcher.addURI(AUTHORITY, DB_TABLE + "/#", 2);
     }
-
-
 
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
