@@ -17,11 +17,12 @@ import com.nuedevlop.dicoding.favorit.FavDB;
 import java.util.Objects;
 
 public class MyContentProvider extends ContentProvider {
+    public MyContentProvider() {}
 
     private FavDAO favDAO;
     private static final String DBNAME = "db_fav";
     private static final String DB_TABLE = "Favorit";
-    private static final String AUTHORITY = "kmzwa88saw";
+    private static final String AUTHORITY = "com.nuedevlop.dicoding";
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
 
@@ -30,9 +31,7 @@ public class MyContentProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, DB_TABLE + "/#", 2);
     }
 
-    public MyContentProvider() {
 
-    }
 
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
