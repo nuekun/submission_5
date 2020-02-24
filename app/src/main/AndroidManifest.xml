@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <permission android:name="com.nuedevlop.dicoding.READ_DATABASE" android:protectionLevel="normal" />
+    <permission android:name="com.nuedevlop.dicoding.WRITE_DATABASE" android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +16,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReminderActivity"></activity>
-
-        <receiver android:name=".utils.Reminder"
+        <provider
+            android:name=".utils.MyContentProvider"
+            android:authorities="com.nuedevlop.dicoding"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"
+            android:readPermission="com.nuedevlop.dicoding.READ_DATABASE"
+            android:writePermission="com.nuedevlop.dicoding.WRITE_DATABASE"></provider>
+
+        <receiver
+            android:name=".utils.Reminder"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".ReminderActivity" />
 
         <receiver android:name=".widget.MovieWidget">
             <intent-filter>

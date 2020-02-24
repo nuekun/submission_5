@@ -11,8 +11,8 @@ import android.widget.RemoteViewsService;
 import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.nuedevlop.dicoding.R;
 import com.nuedevlop.dicoding.favorit.FavDAO;
 import com.nuedevlop.dicoding.favorit.FavDB;
@@ -20,7 +20,6 @@ import com.nuedevlop.dicoding.favorit.Favorit;
 import com.nuedevlop.dicoding.utils.Resources;
 
 import java.util.ArrayList;
-@GlideModule
 public class MovieFactory implements RemoteViewsService.RemoteViewsFactory {
     private Context context;
     private ArrayList<Favorit> favorits = new ArrayList<>();
@@ -48,6 +47,9 @@ public class MovieFactory implements RemoteViewsService.RemoteViewsFactory {
         } catch (Exception e){
             e.printStackTrace();
         }
+        finally {
+            favDB.close();
+        }
     }
 
     @Override
@@ -65,6 +67,7 @@ public class MovieFactory implements RemoteViewsService.RemoteViewsFactory {
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.item_widget);
         try{
+
             Bitmap bitmap = Glide.with(context)
                     .asBitmap()
                     .load(Resources.BASE_URL_IMAGE_W_500+"/"+favorits.get(position).getPoster())

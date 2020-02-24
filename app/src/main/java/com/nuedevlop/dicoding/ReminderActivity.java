@@ -1,14 +1,13 @@
 package com.nuedevlop.dicoding;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.nuedevlop.dicoding.utils.Reminder;
 
@@ -30,6 +29,7 @@ public class ReminderActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        reminder = new Reminder(getApplicationContext());
         init();
         pref();
 
@@ -40,8 +40,10 @@ public class ReminderActivity extends AppCompatActivity {
 
             if (isChecked){
                 reminder.setDailyReminder();
-            }else reminder.cancelDailyReminder(getApplicationContext());
-
+            }else {
+                reminder.cancelDailyReminder(getApplicationContext());
+                Toast.makeText(this, "daily reminder deactive", Toast.LENGTH_SHORT).show();
+            }
 
         });
 
@@ -51,8 +53,10 @@ public class ReminderActivity extends AppCompatActivity {
             sharedPreferenceEditor.apply();
             if (isChecked){
                 reminder.setReleaseTodayReminder();
-            }else reminder.cancelReleaseToday(getApplicationContext());
-
+            }else {
+                reminder.cancelReleaseToday(getApplicationContext());
+                Toast.makeText(this, "realese reminder deactive", Toast.LENGTH_SHORT).show();
+            }
 
         });
 
@@ -60,15 +64,15 @@ public class ReminderActivity extends AppCompatActivity {
     }
 
     private void pref() {
-        Boolean dailyStat = sharedPreferences.getBoolean("daily", false);
-        Boolean realeaseStat = sharedPreferences.getBoolean("realease", false);
+        boolean dailyStat = sharedPreferences.getBoolean("daily", false);
+        boolean realeaseStat = sharedPreferences.getBoolean("realease", false);
         swRelease.setChecked(realeaseStat);
         swDaily.setChecked(dailyStat);
     }
 
     private void init() {
         sharedPreferences = getSharedPreferences("reminder", Context.MODE_PRIVATE);
-        reminder = new Reminder(this);
+
 
         swDaily = findViewById(R.id.swDaily);
         swRelease = findViewById(R.id.swRelease);

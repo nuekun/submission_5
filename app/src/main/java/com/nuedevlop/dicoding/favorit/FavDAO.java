@@ -1,5 +1,6 @@
 package com.nuedevlop.dicoding.favorit;
 
+import android.database.Cursor;
 import android.graphics.Movie;
 
 import androidx.room.Dao;
@@ -16,6 +17,9 @@ public interface FavDAO {
     @Query("DELETE FROM Favorit WHERE idFav = :idFav")
     void deleteByidFav(int idFav);
 
+    @Query("SELECT * FROM Favorit WHERE idFav = :idFav")
+    Cursor selectByid(long idFav);
+
     @Query("SELECT COUNT(idFav) FROM Favorit WHERE tittle = :title")
     int getMovieByTitle(String title);
 
@@ -24,5 +28,8 @@ public interface FavDAO {
 
     @Query("SELECT * FROM Favorit")
     List<Favorit> getAllFav();
+
+    @Query("SELECT * FROM Favorit")
+    Cursor getALL();
 
 }

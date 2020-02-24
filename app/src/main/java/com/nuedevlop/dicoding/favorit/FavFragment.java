@@ -52,7 +52,7 @@ public class FavFragment extends Fragment {
     }
 
     private void getData() {
-        showProgress();
+
 
 
 
@@ -79,7 +79,7 @@ public class FavFragment extends Fragment {
         TextView txtTV = view.findViewById(R.id.txtFavTvCount);
         txtTV.setText("tv series ("+loadFavTV().size()+")");
 
-        hideProgress();
+
 
     }
 
@@ -110,6 +110,7 @@ public class FavFragment extends Fragment {
                 .allowMainThreadQueries()
                 .build();
         FavDAO favDAO = database.getFavDAO();
+        database.close();
                 return favDAO.getFavoritByType("movie");
     }
 
@@ -118,6 +119,7 @@ public class FavFragment extends Fragment {
                 .allowMainThreadQueries()
                 .build();
         FavDAO favDAO = database.getFavDAO();
+        database.close();
         return favDAO.getFavoritByType("tv");
     }
 

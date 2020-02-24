@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -37,11 +38,11 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class MovieFragment extends Fragment {
     private Context context;
-    private ProgressDialog dialog;
     private SharedPreferences local;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private View view;
+    private ProgressBar progressBar;
 
 
     public MovieFragment() {
@@ -60,6 +61,7 @@ public class MovieFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         local = context.getSharedPreferences("local", MODE_PRIVATE);
+        progressBar = view.findViewById(R.id.progressBar);
         this.view = view;
         getData();
 
@@ -117,13 +119,11 @@ public class MovieFragment extends Fragment {
     }
 
     private void showProgress() {
-        dialog = ProgressDialog.show(context, "downloading data",
-                "Loading. Please wait...", true);
+        progressBar.setVisibility(View.VISIBLE);
 
-        dialog.show();
     }
     private void hideProgress() {
-       dialog.hide();
+        progressBar.setVisibility(View.GONE);
     }
     @Override
     public void onAttach(@NonNull Context context) {

@@ -13,6 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -31,6 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 
 public class Reminder extends BroadcastReceiver {
     private static final String EXTRA_TYPE = "type";
@@ -76,12 +78,18 @@ public class Reminder extends BroadcastReceiver {
     }
 
     public void setReleaseTodayReminder() {
+
+
+
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASE_TODAY, getReminderIntent(TYPE_RELEASE), 0);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         assert alarmManager != null;
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, getReminderTime(TYPE_RELEASE).getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
+        Toast.makeText(context, "realese reminder active", Toast.LENGTH_SHORT).show();
+        getReleaseToday(context);
     }
 
     public void setDailyReminder() {
@@ -90,7 +98,8 @@ public class Reminder extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         assert alarmManager != null;
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, getReminderTime(TYPE_DAILY).getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
+        Toast.makeText(context, "daily reminder active", Toast.LENGTH_SHORT).show();
+        showDailyReminder(context);
     }
 
     private void getReleaseToday(final Context context) {
@@ -108,6 +117,8 @@ public class Reminder extends BroadcastReceiver {
                     Log.e("api response", response);
 
                     MovieResult movieResult = (MovieResult) Utils.jsonToPojo(response, MovieResult.class);
+
+
 
 
                     if (movieResult.getResults() != null &&
@@ -134,6 +145,11 @@ public class Reminder extends BroadcastReceiver {
         String CHANNEL_ID = "Channel_2";
         String CHANNEL_NAME = "Today release channel";
 
+
+
+
+
+
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -149,7 +165,7 @@ public class Reminder extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .setSound(uriRingtone)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        Notification notification = mBuilder.build();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
@@ -159,15 +175,22 @@ public class Reminder extends BroadcastReceiver {
                 mNotificationManager.createNotificationChannel(channel);
             }
         }
+        Notification notification = mBuilder.build();
         if (mNotificationManager != null) {
             mNotificationManager.notify(id, notification);
         }
+
+
     }
 
     private void showDailyReminder(Context context) {
         int NOTIFICATION_ID = 1;
         String CHANNEL_ID = "Channel_1";
         String CHANNEL_NAME = "Daily Reminder channel";
+
+
+
+
 
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent,
@@ -185,7 +208,7 @@ public class Reminder extends BroadcastReceiver {
                 .setSound(uriRingtone)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        Notification notification = mBuilder.build();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
@@ -195,9 +218,11 @@ public class Reminder extends BroadcastReceiver {
                 mNotificationManager.createNotificationChannel(channel);
             }
         }
+        Notification notification = mBuilder.build();
         if (mNotificationManager != null) {
             mNotificationManager.notify(NOTIFICATION_ID, notification);
         }
+
     }
 
     private void cancelReminder(Context context, String type) {

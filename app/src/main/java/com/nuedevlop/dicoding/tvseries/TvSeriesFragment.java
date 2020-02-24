@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ import com.nuedevlop.dicoding.R;
 import com.nuedevlop.dicoding.utils.Resources;
 import com.nuedevlop.dicoding.utils.Utils;
 
+import java.util.Objects;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class TvSeriesFragment extends Fragment {
@@ -38,6 +41,7 @@ public class TvSeriesFragment extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private View view;
+    private ProgressBar progressBar;
     public TvSeriesFragment() {
         // Required empty public constructor
     }
@@ -53,7 +57,7 @@ public class TvSeriesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         local = context.getSharedPreferences("local", MODE_PRIVATE);
-
+        progressBar = view.findViewById(R.id.progressBar);
         this.view = view;
         getData();
 
@@ -109,14 +113,11 @@ public class TvSeriesFragment extends Fragment {
     }
 
     private void showProgress() {
-        dialog = ProgressDialog.show(context, "downloading data",
-                "Loading. Please wait...", true);
-
-        dialog.show();
+        progressBar.setVisibility(View.VISIBLE);
 
     }
     private void hideProgress() {
-        dialog.hide();
+        progressBar.setVisibility(View.GONE);
     }
     @Override
     public void onAttach(@NonNull Context context) {
@@ -131,12 +132,13 @@ public class TvSeriesFragment extends Fragment {
         inflater.inflate(R.menu.main_menu, menu);
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.menuSearch);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
 
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
         }
         if (searchView != null) {
+            assert searchManager != null;
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
 
             queryTextListener = new SearchView.OnQueryTextListener() {

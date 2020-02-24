@@ -85,10 +85,6 @@ public class MovieActivity extends AppCompatActivity {
                 .build()
                 .getFavDAO();
 
-
-
-
-
     }
 
     @Override
